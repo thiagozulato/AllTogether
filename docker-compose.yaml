@@ -1,0 +1,25 @@
+version: "3.7"
+
+services:
+  api:
+    build:
+      context: ./src/WebApi
+      dockerfile: Dockerfile
+    ports: 
+      - "5001:80"
+    networks: 
+      - alltogether
+    depends_on: 
+      - redis.cache
+
+  redis.cache:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+    networks: 
+      - alltogether
+
+networks: 
+  alltogether:
+    #name: rede_privada_hom -> Altera o nome da rede
+    driver: bridge
